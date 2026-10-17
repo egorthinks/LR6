@@ -1,2 +1,3 @@
 Заметки по лабораторной работе №6
 Изучены команды clone, pull, log, merge
+Изучены команды branch, revert, push
