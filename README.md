@@ -51,3 +51,61 @@ Git был установлен заранее (версия 2.52). Склони
 После слияния ветка branch1 больше не нужна, удалил ее через `git branch -d`. Ключ `-d` удаляет ветку только если она уже слита, так что ничего не потеряется.
 
 ![Удаление ветки](screenshots/09_delete_branch.png)
+
+## 7. Коммиты и откат
+
+Сделал несколько изменений и после каждого коммит с комментарием: завел файл notes.txt, два раза его дополнил и еще изменил info.txt.
+
+![Несколько коммитов](screenshots/10_commits.png)
+
+Последний коммит (строка в info.txt) оказался лишним, поэтому откатил его через `git revert`. В отличие от `git reset`, revert не переписывает историю, а создает новый коммит с обратными изменениями. Для ветки, которая потом уйдет на GitHub, это безопаснее.
+
+![Откат коммита](screenshots/11_revert.png)
+
+## 8. Ветка для отчета
+
+Создал ветку report и папку screenshots под скриншоты. Этот отчет пишу уже в ней и периодически коммичу.
+
+![Ветка report](screenshots/12_report_branch.png)
+
+## Лог команд
+
+```
+git clone https://github.com/egorthinks/LR6.git
+cd LR6
+git config user.name "4517 Федоров Е.В."
+git config user.email "egor.fedorov.contact@gmail.com"
+git config user.name
+git config user.email
+git branch -a
+git pull
+git log --oneline -3
+git checkout branch1
+git log --oneline --graph
+git checkout master
+git log --oneline --graph
+git show --stat HEAD
+git diff master origin/branch1
+git merge branch1
+git status
+git add mergefile.txt
+git commit -m "Слияние branch1 в master, конфликт в mergefile.txt разрешен"
+git branch -d branch1
+git branch -a
+git add notes.txt
+git commit -m "Добавлен файл с заметками"
+git commit -am "Дополнены заметки: команды первой части"
+git commit -am "Дополнены заметки: команды второй части"
+git commit -am "Изменен info.txt"
+git log --oneline -5
+git revert --no-edit HEAD
+git log --oneline -6
+git checkout -b report
+git branch
+git add README.md screenshots
+git commit -m "..."
+git log --pretty=format:"%h %ad %an %s" --date=short
+git push -u origin report
+git push origin master
+git push origin --delete branch1
+```
